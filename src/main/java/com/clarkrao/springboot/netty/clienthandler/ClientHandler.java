@@ -3,7 +3,9 @@ package com.clarkrao.springboot.netty.clienthandler;
 import com.clarkrao.springboot.netty.protocol.Packet;
 import com.clarkrao.springboot.netty.protocol.request.LoginRequestPacket;
 import com.clarkrao.springboot.netty.protocol.response.LoginResponsePacket;
-import com.clarkrao.springboot.netty.serialize.PacketCodeC;
+import com.clarkrao.springboot.netty.protocol.PacketCodeC;
+import com.clarkrao.springboot.netty.protocol.response.MessageResponsePacket;
+import com.clarkrao.springboot.netty.util.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -45,10 +47,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
 
             if (loginResponsePacket.isSuccess()) {
+                LoginUtil.markAsLogin(ctx.channel());
                 System.out.println(new Date() + ": 客户端登录成功");
             } else {
                 System.out.println(new Date() + ": 客户端登录失败，原因：" + loginResponsePacket.getReason());
             }
+        }else if(packet instanceof MessageResponsePacket){
+            MessageResponsePacket messageResponsePacket = (MessageResponsePacket) packet;
+            System.out.println(new Date() + ": 收到服务端的消息: " + messageResponsePacket.getMessage());
         }
     }
 }

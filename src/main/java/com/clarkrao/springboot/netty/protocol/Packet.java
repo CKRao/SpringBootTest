@@ -20,4 +20,5 @@ public abstract class Packet {
     @JSONField(serialize = false)
     public abstract Byte getCommand();
 
+
 }
