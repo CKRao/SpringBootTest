@@ -28,7 +28,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
         if (packet instanceof LoginRequestPacket) {
             System.out.println(new Date() + ": 收到客户端登录请求……");
-            //登录流程
+            //登录流程  
             LoginRequestPacket loginRequestPacket = (LoginRequestPacket) packet;
 
             LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
