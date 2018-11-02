@@ -54,7 +54,7 @@ public class NettyClient {
     private static void connect(Bootstrap bootstrap, String host, int port, int retry) {
         bootstrap.connect(host, port).addListener(future -> {
             if (future.isSuccess()) {
-                System.out.println(new Date() + ": 连接成功!");
+                System.out.println(new Date() + ": 连接成功!启动控制台线程。。。");
                 Channel channel = ((ChannelFuture) future).channel();
                 // 连接成功之后，启动控制台线程
                 startConsoleThread(channel);

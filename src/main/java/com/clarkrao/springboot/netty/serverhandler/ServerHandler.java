@@ -22,12 +22,12 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println(new Date() + ": 客户端开始登录……");
         ByteBuf byteBuf = (ByteBuf) msg;
 
         Packet packet = PacketCodeC.INSTANCE.decode(byteBuf);
 
         if (packet instanceof LoginRequestPacket) {
+            System.out.println(new Date() + ": 收到客户端登录请求……");
             //登录流程
             LoginRequestPacket loginRequestPacket = (LoginRequestPacket) packet;
 
