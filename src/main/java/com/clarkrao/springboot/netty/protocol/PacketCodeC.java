@@ -1,8 +1,10 @@
-package com.clarkrao.springboot.netty.serialize;
+package com.clarkrao.springboot.netty.protocol;
 
-import com.clarkrao.springboot.netty.protocol.Packet;
 import com.clarkrao.springboot.netty.protocol.request.LoginRequestPacket;
+import com.clarkrao.springboot.netty.protocol.request.MessageRequestPacket;
 import com.clarkrao.springboot.netty.protocol.response.LoginResponsePacket;
+import com.clarkrao.springboot.netty.protocol.response.MessageResponsePacket;
+import com.clarkrao.springboot.netty.serialize.Serializer;
 import com.clarkrao.springboot.netty.serialize.impl.JSONSerializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -10,8 +12,7 @@ import io.netty.buffer.ByteBufAllocator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.clarkrao.springboot.netty.protocol.command.Command.LOGIN_REQUEST;
-import static com.clarkrao.springboot.netty.protocol.command.Command.LOGIN_RESPONSE;
+import static com.clarkrao.springboot.netty.protocol.command.Command.*;
 
 /**
  * @Author: ClarkRao
@@ -41,6 +42,8 @@ public class PacketCodeC {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         /**
          * 初始化serializerMap
