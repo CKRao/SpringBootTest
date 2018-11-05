@@ -1,11 +1,12 @@
 package com.clarkrao.springboot.netty.client;
 
-import com.clarkrao.springboot.netty.clienthandler.ClientHandler;
-import com.clarkrao.springboot.netty.protocol.PacketCodeC;
+import com.clarkrao.springboot.netty.clienthandler.LoginResponseHandler;
+import com.clarkrao.springboot.netty.clienthandler.MessageResponseHandler;
+import com.clarkrao.springboot.netty.codec.PacketDecoder;
+import com.clarkrao.springboot.netty.codec.PacketEncoder;
 import com.clarkrao.springboot.netty.protocol.request.MessageRequestPacket;
 import com.clarkrao.springboot.netty.util.LoginUtil;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -44,7 +45,10 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
-                        ch.pipeline().addLast(new ClientHandler());
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginResponseHandler());
+                        ch.pipeline().addLast(new MessageResponseHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 
@@ -84,10 +88,7 @@ public class NettyClient {
                     Scanner scanner = new Scanner(System.in);
                     String line = scanner.nextLine();
 
-                    MessageRequestPacket packet = new MessageRequestPacket();
-                    packet.setMessage(line);
-                    ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(channel.alloc(), packet);
-                    channel.writeAndFlush(byteBuf);
+                    channel.writeAndFlush(new MessageRequestPacket(line));
                 }
             }
         }).start();

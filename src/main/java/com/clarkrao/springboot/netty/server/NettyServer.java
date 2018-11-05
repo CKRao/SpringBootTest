@@ -1,6 +1,9 @@
 package com.clarkrao.springboot.netty.server;
 
-import com.clarkrao.springboot.netty.serverhandler.ServerHandler;
+import com.clarkrao.springboot.netty.codec.PacketDecoder;
+import com.clarkrao.springboot.netty.codec.PacketEncoder;
+import com.clarkrao.springboot.netty.serverhandler.LoginRequestHandler;
+import com.clarkrao.springboot.netty.serverhandler.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -35,7 +38,10 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) throws Exception {
-                        channel.pipeline().addLast(new ServerHandler());
+                        channel.pipeline().addLast(new PacketDecoder());
+                        channel.pipeline().addLast(new LoginRequestHandler());
+                        channel.pipeline().addLast(new MessageRequestHandler());
+                        channel.pipeline().addLast(new PacketEncoder());
                     }
                 });
         bind(serverBootstrap, PORT);
