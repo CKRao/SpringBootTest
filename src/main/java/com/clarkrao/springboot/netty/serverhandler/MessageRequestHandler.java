@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * @Author: ClarkRao
  * @Date: 2018/11/5 22:28
- * @Description:
+ * @Description: 消息请求处理器
  */
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
     @Override

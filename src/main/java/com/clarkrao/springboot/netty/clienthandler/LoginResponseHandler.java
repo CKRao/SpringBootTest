@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * @Author: ClarkRao
  * @Date: 2018/11/5 22:38
- * @Description:
+ * @Description: 登录响应处理器
  */
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 

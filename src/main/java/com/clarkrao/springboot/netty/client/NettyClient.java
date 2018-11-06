@@ -4,6 +4,7 @@ import com.clarkrao.springboot.netty.clienthandler.LoginResponseHandler;
 import com.clarkrao.springboot.netty.clienthandler.MessageResponseHandler;
 import com.clarkrao.springboot.netty.codec.PacketDecoder;
 import com.clarkrao.springboot.netty.codec.PacketEncoder;
+import com.clarkrao.springboot.netty.codec.Spliter;
 import com.clarkrao.springboot.netty.protocol.request.MessageRequestPacket;
 import com.clarkrao.springboot.netty.util.LoginUtil;
 import io.netty.bootstrap.Bootstrap;
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author: ClarkRao
  * @Date: 2018/11/1 23:06
- * @Description:
+ * @Description: Netty客户端
  */
 public class NettyClient {
 
@@ -45,6 +46,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
+                        ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new MessageResponseHandler());

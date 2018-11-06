@@ -23,7 +23,7 @@ public class PacketCodeC {
     /**
      * 定义魔数
      */
-    private static final int MAGIC_NUMBER = 0x12345678;
+    public static final int MAGIC_NUMBER = 0x12345678;
     /**
      * 构造单例
      */
@@ -62,7 +62,7 @@ public class PacketCodeC {
      * @return
      */
     public void encode(ByteBuf byteBuf, Packet packet) {
-        //创建ByteBuf对象
+        //创建ByteBuf对象（修改后版本无需手动创建byteBuf）
 //        ByteBuf byteBuf = byteBufAllocator.buffer();
         //1、序列化java对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);

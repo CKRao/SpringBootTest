@@ -2,6 +2,7 @@ package com.clarkrao.springboot.netty.server;
 
 import com.clarkrao.springboot.netty.codec.PacketDecoder;
 import com.clarkrao.springboot.netty.codec.PacketEncoder;
+import com.clarkrao.springboot.netty.codec.Spliter;
 import com.clarkrao.springboot.netty.serverhandler.LoginRequestHandler;
 import com.clarkrao.springboot.netty.serverhandler.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -16,7 +17,7 @@ import java.util.Date;
 /**
  * @Author: ClarkRao
  * @Date: 2018/11/1 22:53
- * @Description:
+ * @Description: Netty服务端
  */
 public class NettyServer {
 
@@ -37,11 +38,12 @@ public class NettyServer {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
-                    protected void initChannel(NioSocketChannel channel) throws Exception {
-                        channel.pipeline().addLast(new PacketDecoder());
-                        channel.pipeline().addLast(new LoginRequestHandler());
-                        channel.pipeline().addLast(new MessageRequestHandler());
-                        channel.pipeline().addLast(new PacketEncoder());
+                    protected void initChannel(NioSocketChannel ch) throws Exception {
+                        ch.pipeline().addLast(new Spliter());
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
         bind(serverBootstrap, PORT);
