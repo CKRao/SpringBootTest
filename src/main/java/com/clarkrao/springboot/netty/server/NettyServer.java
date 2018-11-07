@@ -3,6 +3,7 @@ package com.clarkrao.springboot.netty.server;
 import com.clarkrao.springboot.netty.codec.PacketDecoder;
 import com.clarkrao.springboot.netty.codec.PacketEncoder;
 import com.clarkrao.springboot.netty.codec.Spliter;
+import com.clarkrao.springboot.netty.serverhandler.AuthHandler;
 import com.clarkrao.springboot.netty.serverhandler.LifeCyCleTestHandler;
 import com.clarkrao.springboot.netty.serverhandler.LoginRequestHandler;
 import com.clarkrao.springboot.netty.serverhandler.MessageRequestHandler;
@@ -40,10 +41,13 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new LifeCyCleTestHandler());//增加生命周期处理器
+//                        ch.pipeline().addLast(new LifeCyCleTestHandler());//增加生命周期处理器
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
+
+                        // 新增加用户认证handler
+                        ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
