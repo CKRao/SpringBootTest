@@ -77,7 +77,7 @@ public class EasyThreadPool {
             //立即执行这个任务
             thread.setTarget(target);
         } else {
-            ///没有空闲线程，则创建线程
+            //没有空闲线程，则创建线程
             threadCounter++;
             //创建新线程
             thread = new PThread(target, "PThread #" + threadCounter, this);
