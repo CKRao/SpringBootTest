@@ -22,6 +22,7 @@ import java.util.List;
 public class ExcelImportTest {
     public static final String FILE_PATH="C:\\Users\\user\\Desktop\\" ;
     public static final String EXPORT_NAME= "coos.xls";
+
    public static void importExcel(){
        File file = new File("C:\\Users\\user\\Desktop\\cpuid.xls");
        List<ExcelModel> excelModels = new ArrayList<>();
