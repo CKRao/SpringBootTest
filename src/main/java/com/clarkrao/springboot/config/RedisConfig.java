@@ -33,6 +33,8 @@ public class RedisConfig extends CachingConfigurerSupport {
             @Override
             public Object generate(Object o, Method method, Object... objects) {
                 StringBuilder builder = new StringBuilder();
+                Object o1 = new Object();
+                System.out.println("杨弘波傻逼");
                 builder.append(o.getClass().getName());
                 builder.append(method.getName());
                 for (Object obj :objects) {

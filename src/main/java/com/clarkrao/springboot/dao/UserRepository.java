@@ -13,8 +13,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByUserName(String name);
-    User findByUserNameAndEmail(String name,String email);
-    User findByUserNameAndPassWord(String name,String passWord);
+
+    User findByUserNameAndEmail(String name, String email);
+
+    User findByUserNameAndPassWord(String name, String passWord);
+
     @Cacheable(cacheNames = "user.service.findbyusername")
     User findByUserName(String name);
 }

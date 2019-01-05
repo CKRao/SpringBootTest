@@ -1,7 +1,6 @@
 package com.clarkrao.springboot.dao;
 
 import com.clarkrao.springboot.entity.AppEntity;
-import com.clarkrao.springboot.entity.TestEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,12 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface MongoDBJPADao extends MongoRepository<AppEntity,ObjectId> {
+public interface MongoDbJpaDao extends MongoRepository<AppEntity, ObjectId> {
+    /**
+     * 通过apiKey查找App实体
+     *
+     * @param apiKey
+     * @return
+     */
     AppEntity findByApiKey(String apiKey);
 }
