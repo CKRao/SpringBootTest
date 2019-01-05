@@ -9,10 +9,14 @@
     </resultMap>
     <sql id="Base_Column_List">
     user_id, user_name, password, phone
-  </sql>
+    </sql>
+
     <insert id="insert" parameterType="TUser">
-      INSERT INTO t_user (user_id, user_name, password,phone)
-        VALUES (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR})
+      INSERT INTO t_user
+      (user_id, user_name, password,phone)
+        VALUES
+        (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+         #{password,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR})
        </insert>
 
     <update id="update" parameterType="TUser">
@@ -28,16 +32,19 @@
                 phone = #{phone,jdbcType=VARCHAR},
             </if>
         </set>
-        where user_id = #{userId,jdbcType=INTEGER}
+        WHERE user_id = #{userId,jdbcType=INTEGER}
     </update>
+
     <delete id="deleteById" parameterType="TUser">
         DELETE  FROM t_user WHERE  user_id = #{userId,jdbcType=INTEGER}
     </delete>
+
     <select id="getTUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user WHERE user_id = #{userId,jdbcType=VARCHAR}
     </select>
+
     <select id="findAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
